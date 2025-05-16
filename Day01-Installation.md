@@ -6,7 +6,7 @@ Ngôn ngữ C# là ngôn ngữ phổ biến nhất cho nền tảng .NET – m�
 
 Dựa trên nguyên lý lập trình hướng đối tượng, C# tích hợp nhiều đặc điểm từ các mô hình lập trình khác, trong đó có cả lập trình hàm. Các tính năng cấp thấp cho phép xử lý hiệu quả cao mà không cần viết mã không an toàn. Phần lớn runtime và thư viện của .NET được viết bằng C#
 
-C# thuộc họ ngôn ngữ C. Cú pháp của C# sẽ quen thuộc nếu bạn từng dùng C, C++, JavaScript, TypeScript hoặc Java. Giống như C và C++, dấu chấm phẩy (`;`) được dùng để kết thúc câu lệnh. Tên định danh (identifier) trong C# phân biệt chữ hoa và chữ thường. C# cũng sử dụng dấu ngoặc nhọn { và } tương tự, có các câu lệnh điều kiện như `if`, `else`, `switch`, và các cấu trúc lặp như `for`, `while`. Ngoài ra, C# còn có câu lệnh `foreach` để duyệt qua bất kỳ kiểu tập hợp (collection) nào.
+C# thuộc họ ngôn ngữ C. Cú pháp của C# sẽ quen thuộc nếu bạn từng dùng C, C++, JavaScript, TypeScript hoặc Java. Giống như C và C++, dấu chấm phẩy (`;`) được dùng để kết thúc câu lệnh. Tên định danh (identifier) trong C# phân biệt chữ hoa và chữ thường. C# cũng sử dụng dấu ngoặc nhọn `{` và `}` tương tự, có các câu lệnh điều kiện như `if`, `else`, `switch`, và các cấu trúc lặp như `for`, `while`. Ngoài ra, C# còn có câu lệnh `foreach` để duyệt qua bất kỳ kiểu tập hợp (collection) nào.
 
 ## CHUẨN BỊ
 
@@ -104,7 +104,7 @@ Console.WriteLine("Hello, World!");
 ## Link tham khảo
 - https://code.visualstudio.com/docs/setup/setup-overview
 - https://learn.microsoft.com/en-us/visualstudio/install/install-visual-studio?view=vs-2022
-
+- https://dotnet.microsoft.com/en-us/download
 ## HASHTAG
 
 #Csharp-in-5-weeks #Csharp
