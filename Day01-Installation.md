@@ -88,7 +88,7 @@ Bây giờ bạn đã sẵn sàng để viết những dòng code C# đầu tiê
 Console.WriteLine("Hello, World!");
 ```
 
-- Ấn run hoặc `ctrl` + `F5` màn hình sẽ hiển thị ra kết quả như sau 
+- Ấn `RUN` hoặc `ctrl` + `F5` màn hình sẽ hiển thị ra kết quả như sau 
 
 ![image](https://github.com/user-attachments/assets/45d28f71-0896-43de-bdf2-665d0e1c4a98)
 
