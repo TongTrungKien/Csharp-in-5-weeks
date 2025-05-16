@@ -12,13 +12,13 @@ C# thuộc họ ngôn ngữ C. Cú pháp của C# sẽ quen thuộc nếu bạn 
 
 Để bắt đầu lập trình với C#, bạn cần chuẩn bị một số công cụ sau tùy theo nhu cầu và nền tảng:
 
-IDE/Editor:
+- IDE/Editor:
 
-Nếu bạn muốn một trình soạn thảo nhẹ, linh hoạt, đa nền tảng: sử dụng Visual Studio Code (VS Code).
+  - Nếu bạn muốn một trình soạn thảo nhẹ, linh hoạt, đa nền tảng: sử dụng [Visual Studio Code](https://code.visualstudio.com/) (VS Code).
 
-Nếu bạn cần môi trường phát triển đầy đủ, hỗ trợ tất cả tính năng của .NET: sử dụng Visual Studio (Community/Pro/Enterprise).
+  - Nếu bạn cần môi trường phát triển đầy đủ, hỗ trợ tất cả tính năng của .NET: sử dụng [Visual Studio](https://visualstudio.microsoft.com/) (Community/Pro/Enterprise).
 
-.NET SDK: Đây là bộ công cụ giúp biên dịch và chạy ứng dụng C#.
+  - [.NET SDK](https://dotnet.microsoft.com/en-us/download): Đây là bộ công cụ giúp biên dịch và chạy ứng dụng C#.
 
 | Lựa chọn | Ưu điểm | Gợi ý sử dụng |
 |---------|---------|----------------|
@@ -90,8 +90,7 @@ Console.WriteLine("Hello, World!");
 
 - Ấn run hoặc `ctrl` + `F5` màn hình sẽ hiển thị ra kết quả như sau 
 
-![image](https://github.com/user-attachments/assets/fb0bc74f-fe76-4c9c-ad3b-79cb71ffe8a5)
-
+![image](https://github.com/user-attachments/assets/45d28f71-0896-43de-bdf2-665d0e1c4a98)
 
 
 ## NÊN CHỌN CÔNG CỤ NÀO? 
