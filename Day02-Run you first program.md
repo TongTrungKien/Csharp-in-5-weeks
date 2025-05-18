@@ -187,7 +187,7 @@ Console.WriteLine(songLyrics.Contains("greetings"));
 ## THỬ THÁCH
 Có hai phương pháp tương tự, [StartsWith](https://learn.microsoft.com/en-us/dotnet/api/system.string.startswith) và [EndsWith](https://learn.microsoft.com/en-us/dotnet/api/system.string.endswith) cũng tìm kiếm các chuỗi con trong một chuỗi. Các phương pháp này tìm một chuỗi con ở đầu hoặc cuối chuỗi. Hãy thử sửa đổi mẫu trước đó để sử dụng [StartsWith](https://learn.microsoft.com/en-us/dotnet/api/system.string.startswith) và [EndsWith](https://learn.microsoft.com/en-us/dotnet/api/system.string.endswith) thay vì [Contains](https://learn.microsoft.com/en-us/dotnet/api/system.string.contains) . Tìm kiếm "You" hoặc `"goodbye" ở đầu chuỗi. Tìm kiếm "hello" hoặc "goodbye" ở cuối chuỗi.
 
-*Bạn nên truebắt đầu bằng "You" và kết thúc bằng "hello" và falsebắt đầu hoặc kết thúc bằng "goodbye".*
+*Bạn nên `true` bắt đầu bằng "You" và kết thúc bằng "hello" và `false` bắt đầu hoặc kết thúc bằng "goodbye".*
 
 
 ## Link tham khảo
