@@ -127,11 +127,11 @@ Console.WriteLine(intValue);  // In ra 9
 ```
 ### ***MỘT SỐ LƯU Ý KHI ÉP KIỂU TRONG C#***
 
-### Mất mát dữ liệu:
+### MẤT MÁT DỮ LIỆU:
 
 - Khi ép kiểu từ kiểu dữ liệu lớn sang kiểu dữ liệu nhỏ (explicit cast), có thể gây mất mát dữ liệu. Ví dụ, khi chuyển từ `double` sang `int`, phần thập phân sẽ bị loại bỏ.
 
-### Kiểm tra lỗi khi ép kiểu:
+### KIỂM TRA LỖI KHI ÉP KIỂU:
 
 Nếu bạn không chắc chắn về kiểu dữ liệu, bạn có thể sử dụng `try-catch` hoặc `as` để tránh lỗi runtime khi ép kiểu không hợp lệ.
 
@@ -147,7 +147,7 @@ catch (FormatException e)
 }
 ```
 
-## Sử dụng `as` và `is`:
+## SỬ DỤNG `as` và `is`:
 
 - Dùng từ khóa `as` để ép kiểu khi bạn không chắc chắn rằng kiểu dữ liệu có thể ép được.
 
@@ -182,25 +182,25 @@ const <kiểu_dữ_liệu> <tên_hằng_số> = <giá_trị>;
 
 ## VÍ DỤ VỀ HẰNG SỐ
 
-### Hằng số kiểu số nguyên
+### HẰNG SỐ KIỂU SỐ NGUYÊN
 
 ```csharp
 const int MaxUsers = 100;  // Hằng số kiểu int
 Console.WriteLine(MaxUsers);  // Output: 100
 ```
-### Hằng số kiểu chuỗi
+### HẰNG SỐ KIỂU CHUỖI
 
 ```csharp
 const string GreetingMessage = "Hello, World!";
 Console.WriteLine(GreetingMessage);  // Output: Hello, World!
 ```
-### Hằng số kiểu số thực (float, double)
+### HẰNG SỐ KIỂU SỐ THỰC (float, double)
 
 ```csharp
 const double PI = 3.14159;
 Console.WriteLine(PI);  // Output: 3.14159
 ```
-### Hằng số kiểu boolean
+###HẰNG SỐ KIỂU BOOLEAN
 
 ```csharp
 const bool IsValid = true;
@@ -264,10 +264,10 @@ Biểu thức có thể là bất kỳ đoạn mã nào thực hiện phép toá
 
 Biểu thức có thể rất đơn giản hoặc phức tạp, tùy thuộc vào số lượng toán tử và toán hạng.
 
-## Các loại biểu thức trong C#
+## CÁC LOẠI BIỂU THỨC TRONG C#
 
 
-### Biểu thức toán học đơn giản
+### BIỂU THỨC TOÁN HỌC CƠ BẢN
 Đây là các biểu thức thực hiện các phép toán cơ bản như cộng, trừ, nhân, chia, v.v.
 
 ```csharp
@@ -277,7 +277,7 @@ int z = 4 * 6;   // Biểu thức nhân: z = 24
 int w = 8 / 2;   // Biểu thức chia: w = 4
 ```
 
-### Biểu thức với phép toán so sánh
+### BIỂU THỨC VỚI PHÉP TOÁN SO SÁNH
 Biểu thức này so sánh các giá trị và trả về giá trị `true` hoặc `false`.
 
 ```csharp
@@ -287,7 +287,7 @@ bool result3 = 5 == 5;   // Biểu thức so sánh: true
 bool result4 = 7 != 8;   // Biểu thức so sánh: true
 ```
 
-### Biểu thức logic
+### BIỂU THỨC LOGIC
 Biểu thức logic kết hợp các phép toán so sánh và trả về giá trị `true` hoặc `false`. Chúng sử dụng các toán tử logic như `&&` (và), `||` (hoặc), `!` (đảo ngược).
 
 ```csharp
@@ -296,7 +296,7 @@ bool isFalse = (5 < 3) || (7 > 10); // Biểu thức logic: false
 bool isNot = !(5 == 5);             // Biểu thức logic: false
 ```
 
-### Biểu thức kết hợp phương thức
+### BIỂU THỨC KẾT HỢP PHƯƠNG THỨC
 Biểu thức có thể kết hợp các phép toán với các phương thức hoặc hàm.
 
 ```csharp
@@ -304,7 +304,7 @@ int x = Math.Max(5, 10);  // Biểu thức kết hợp phương thức: x = 10
 double area = Math.PI * Math.Pow(2, 2);  // Biểu thức kết hợp phương thức: area = 12.566370614359172
 ```
 
-### Biểu thức gán
+### BIỂU THỨC GÁN
 Biểu thức gán dùng để gán giá trị cho một biến. Toán tử `=` là toán tử gán.
 
 ```csharp
@@ -313,7 +313,7 @@ x += 5;        // Tương đương với x = x + 5, x = 15
 x *= 2;        // Tương đương với x = x * 2, x = 30
 ```
 
-## Biểu thức phức tạp
+## BIỂU THỨC PHỨC TẠP
 
 Biểu thức có thể kết hợp nhiều phép toán và toán hạng, tạo thành các biểu thức phức tạp.
 
@@ -326,7 +326,7 @@ Trong ví dụ trên:
 - `(10 - 2)` là một biểu thức trừ, trả về `8`.
 - Sau đó kết quả của các phép toán này được nhân với nhau và chia cho `4`.
 
-## Biểu thức với điều kiện (Ternary Operator)
+## BIỂU THỨC VỚI ĐIỀU KIỆN (Ternary Operator)
 
 C# cũng hỗ trợ **biểu thức điều kiện** (ternary operator), một cách viết ngắn gọn của câu lệnh `if-else`.
 
