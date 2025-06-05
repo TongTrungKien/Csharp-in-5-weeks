@@ -802,14 +802,40 @@ Bảng sau liệt kê các toán tử C# bắt đầu từ mức ưu tiên cao n
 
 - Để ưu tiên đánh giá theo ý bạn, nên dùng dấu ngoặc `()`.
 
+# TÍNH KẾT HỢP CỦA TOÁN TỬ TRONG c# (Operator Associativity)
 
+Khi các toán tử có **cùng độ ưu tiên**, **tính kết hợp (associativity)** sẽ xác định **thứ tự đánh giá** của các toán tử trong biểu thức.
 
+---
 
+## **Left-associative** (Kết hợp trái sang phải)
 
+Hầu hết các toán tử nhị phân trong C# là **kết hợp trái** — tức là **được đánh giá từ trái sang phải**.
 
+**Ví dụ:**
 
+```csharp
+a + b - c  // được hiểu là: (a + b) - c
+```
 
+-  Ngoại lệ: [các toán tử gán](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/assignment-operator) (`=`), [null-coalescing](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/null-coalescing-operator) (`??`, `??=`) không thuộc nhóm này.
 
+## Right-associative (Kết hợp phải sang trái)
+
+- Các toán tử sau là kết hợp phải — được đánh giá từ phải sang trái:
+
+- Toán tử gán (`=`, `+=`, `-=`, v.v.)
+
+- Toán tử `??`, `??=`
+
+- Lambda (`=>`)
+
+- Toán tử điều kiện `?:`
+
+**Ví dụ**
+```csharp
+x = y = z; // được hiểu là: x = (y = z)
+```
 
 
 
