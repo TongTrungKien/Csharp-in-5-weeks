@@ -1,11 +1,15 @@
 # OPERATIONS IN C#
 
-* Toán tử gán
-* Toán tử số học
-* Toán tử 1 ngôi
-* Toán tử so sánh
-* Toán tử luận lý điều kiện
-* Độ ưu tiên toán tử 
+Bài viết này sẽ hướng dẫn bạn từ cơ bản đến nâng cao về các nhóm toán tử phổ biến trong C#, bao gồm:
+
+-  Toán tử gán
+-  Toán tử số học
+-  Toán tử một ngôi
+-  Toán tử so sánh
+-  Toán tử luận lý điều kiện
+-  Toán tử điều kiện `?:`
+-  Overload toán tử & lưu ý đặc biệt
+-  Độ ưu tiên và kết hợp toán tử
 
 Trong lập trình C#, các phép toán là thành phần cơ bản và quan trọng để xử lý dữ liệu, tính toán, ra quyết định và điều khiển luồng chương trình. Việc hiểu rõ từng loại phép toán giúp bạn viết mã hiệu quả, dễ đọc và ít lỗi hơn.
 
@@ -537,3 +541,301 @@ Nếu bạn cần tùy chỉnh cách so sánh của record, hãy cài đặt int
 ```csharp
 public virtual bool Equals(T? other);
 ```
+
+# TOÁN TỬ LUẬN LÝ ĐIỀU KIỆN
+
+- `&&`: Phép toán luận lý **VÀ** (AND) – trả về `true` nếu **cả hai đều đúng**
+- `||`: Phép toán luận lý **HOẶC** (OR) – trả về `false` nếu **cả hai đều sai**
+
+## TOÁN TỬ `&&` (AND logic có rút gọn – short-circuit)
+
+
+Toán tử `&&` thực hiện phép toán **VÀ logic** giữa hai toán hạng.  
+Biểu thức `x && y` sẽ trả về `true` **chỉ khi cả `x` và `y` đều là `true`**, ngược lại sẽ trả về `false`.
+
+Điểm đặc biệt của `&&` là **short-circuit evaluation** – nếu `x` đã là `false`, thì **`y` sẽ không được đánh giá (không chạy)** vì kết quả chắc chắn là `false` rồi.
+
+**Ví dụ:**
+
+```csharp
+bool SecondOperand()
+{
+    Console.WriteLine("Second operand is evaluated.");
+    return true;
+}
+
+bool a = false && SecondOperand();
+Console.WriteLine(a);
+// Output:
+// False
+
+bool b = true && SecondOperand();
+Console.WriteLine(b);
+// Output:
+// Second operand is evaluated.
+// True
+```
+- Dòng false && SecondOperand() → vế trái đã false, nên vế phải không được thực thi
+
+- Dòng true && SecondOperand() → cần kiểm tra cả hai, nên SecondOperand() được gọi và in ra dòng chữ
+
+> Nếu bạn muốn [toán tử AND](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/boolean-logical-operators#logical-and-operator-) nhưng luôn đánh giá cả hai vế, dùng toán tử & (logical AND không rút gọn)
+
+## TOÁN TỬ `||` (OR logic có rút gọn – short-circuit)
+
+Toán tử `||` thực hiện phép toán **HOẶC logic** giữa hai toán hạng.  
+Biểu thức `x || y` trả về `true` nếu **ít nhất một trong hai** (`x` hoặc `y`) là `true`.  
+Ngược lại, nếu cả hai đều `false`, kết quả là `false`.
+
+Toán tử `||` cũng hỗ trợ **short-circuit evaluation** – nếu `x` đã là `true`, thì **`y` sẽ không được đánh giá (không chạy)** vì kết quả chắc chắn là `true`.
+
+**Ví dụ:**
+
+```csharp
+bool SecondOperand()
+{
+    Console.WriteLine("Second operand is evaluated.");
+    return true;
+}
+
+bool a = true || SecondOperand();
+Console.WriteLine(a);
+// Output:
+// True
+
+bool b = false || SecondOperand();
+Console.WriteLine(b);
+// Output:
+// Second operand is evaluated.
+// True
+```
+- Dòng `true || SecondOperand()` → vế trái đã là `true`, nên `SecondOperand()` không được gọi
+
+- Dòng `false || SecondOperand()` → cần kiểm tra cả hai → `SecondOperand()` được gọi → in dòng chữ
+
+>Nếu bạn muốn thực hiện phép [OR logic](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/boolean-logical-operators#logical-or-operator-) nhưng luôn đánh giá cả hai vế, hãy dùng toán tử | (logical OR không rút gọn)
+
+# TOÁN TỬ ĐIỀU KIỆN `?:`(Ternary Conditional Operator)
+
+Toán tử `?:`, còn gọi là **toán tử điều kiện ba ngôi (ternary operator)**, là một cú pháp rút gọn của `if-else`, dùng để trả về **một trong hai biểu thức** tùy theo điều kiện `bool`.  
+Nó thường được dùng khi bạn cần **tính ra một giá trị** theo điều kiện, mà không cần cả khối `if`.
+
+**Cú pháp**
+
+```csharp
+condition ? consequent : alternative;
+```
+
+- `condition`: biểu thức logic (`bool`)
+- Nếu `condition == true`, biểu thức `consequent` sẽ được thực thi và trả về kết quả.
+- Nếu `condition == false`, biểu thức `alternative` sẽ được thực thi.
+
+> **Chỉ một trong hai biểu thức (consequent hoặc alternative) được đánh giá.**
+
+---
+
+**Ví dụ:**
+
+```csharp
+string GetWeatherDisplay(double tempInCelsius) =>
+    tempInCelsius < 20.0 ? "Cold." : "Perfect!";
+
+Console.WriteLine(GetWeatherDisplay(15));  // Output: Cold.
+Console.WriteLine(GetWeatherDisplay(27));  // Output: Perfect!
+```
+
+---
+
+### GHI NHỚ NHANH
+
+```text
+is this condition true ? yes : no
+```
+
+---
+
+## TƯƠNG THÍCH KIỂU DỮ LIỆU (Target typing)
+
+Toán tử `?:` có thể suy ra kiểu kết quả nếu kiểu mong đợi (target type) đã rõ.
+
+###  TRƯỜNG HỢP TARGET TYPE RÕ RÀNG:
+
+```csharp
+bool condition = true;
+int? x = condition ? 12 : null; // hợp lệ vì target type là int?
+```
+
+### TRƯỜNG HỢP DÙNG `var`: 
+
+- Khi dùng [`var`](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/declarations#implicitly-typed-local-variables), **kiểu của hai nhánh phải tương thích**, hoặc có ép kiểu rõ ràng.
+
+```csharp
+var x = condition ? 12 : (int?)null; // hợp lệ
+```
+
+> Nếu hai nhánh không có kiểu chung, hoặc không ép kiểu, sẽ bị lỗi biên dịch.
+
+---
+
+## TÍNH KẾT HỢP PHẢI (Right-associative)
+
+Biểu thức `?:` có tính kết hợp phải → nghĩa là:
+
+```csharp
+a ? b : c ? d : e;
+```
+
+sẽ được hiểu như:
+
+```csharp
+a ? b : (c ? d : e);
+```
+
+---
+
+## BIỂU THỨC THAM CHIẾU `ref` CÓ ĐIỀU KIỆN (Conditional `ref` expression)
+
+Toán tử `?:` cũng hỗ trợ truy xuất hoặc gán **theo tham chiếu** bằng cách thêm từ khóa `ref`.
+
+**Ví dụ:**
+
+```csharp
+int[] smallArray = { 1, 2, 3, 4, 5 };
+int[] largeArray = { 10, 20, 30, 40, 50 };
+
+int index = 7;
+ref int refValue = ref (index < 5 ? ref smallArray[index] : ref largeArray[index - 5]);
+refValue = 0;
+
+index = 2;
+(index < 5 ? ref smallArray[index] : ref largeArray[index - 5]) = 100;
+
+Console.WriteLine(string.Join(" ", smallArray));  // 1 2 100 4 5
+Console.WriteLine(string.Join(" ", largeArray));  // 10 20 0 40 50
+```
+
+- Biểu thức `ref` có điều kiện cũng chỉ đánh giá **một nhánh**.
+- `consequent` và `alternative` phải có cùng kiểu và đều là **tham chiếu (`ref`)**.
+- Biểu thức `ref` có điều kiện **không hỗ trợ target typing**.
+
+---
+
+## SO SÁNH VỚI CÂU LỆNH `if`
+
+Toán tử `?:` thường được dùng để rút gọn biểu thức [`if-else`](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/selection-statements#the-if-statement) đơn giản trả về giá trị:
+
+```csharp
+int input = new Random().Next(-5, 5);
+
+// Cách dùng if:
+string classify;
+if (input >= 0)
+    classify = "nonnegative";
+else
+    classify = "negative";
+
+// Dùng toán tử ?:
+classify = (input >= 0) ? "nonnegative" : "negative";
+```
+
+> Ưu điểm: **gọn hơn**, dễ đọc khi xử lý giá trị nhanh.  
+> Không phù hợp cho logic phức tạp hoặc nhiều dòng lệnh.
+
+---
+
+## KHẢ NĂNG OVERLOAD TOÁN TỬ `?:`
+
+- Các **kiểu do người dùng định nghĩa** (`class`, `struct`, `record`) **không thể overload** toán tử `?:`.
+- Nếu cần thay đổi hành vi lựa chọn giá trị theo điều kiện, hãy dùng `if` hoặc pattern matching.
+
+---
+## Tài liệu liên quan
+
+- [Tài liệu chính thức về `?:`](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/conditional-operator)
+- [Tài liệu về `if` statement](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/selection-statements#the-if-statement)
+- [Tài liệu về `??`, `??=`, `?.`, `?[]` operators](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/)
+- [IDE0075 - Gợi ý dùng toán tử `?:`](https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/ide0075)
+
+---
+
+>**Mẹo**: Dùng `?:` trong nội suy chuỗi, trong các biểu thức gán ngắn gọn, hoặc khi cần gán giá trị mặc định theo điều kiện — nhưng tránh lồng quá nhiều vì dễ làm giảm tính rõ ràng.
+
+# ĐỘ ƯU TIÊN GIỮA CÁC TOÁN TỬ
+Trong một biểu thức có nhiều toán tử, các toán tử có độ ưu tiên cao hơn sẽ được đánh giá trước các toán tử có độ ưu tiên thấp hơn.
+Trong ví dụ sau, phép nhân được thực hiện trước vì nó có độ ưu tiên cao hơn phép cộng:
+
+```csharp
+var a = 2 + 2 * 2;
+Console.WriteLine(a); //  output: 6
+```
+Sử dụng dấu ngoặc đơn để thay đổi thứ tự đánh giá mặc định do độ ưu tiên của toán tử quy định.
+
+```csharp
+var a = (2 + 2) * 2;
+Console.WriteLine(a); //  output: 8
+```
+
+Bảng sau liệt kê các toán tử C# bắt đầu từ mức ưu tiên cao nhất đến thấp nhất. Các toán tử trong mỗi hàng có cùng mức ưu tiên.
+
+
+| **Toán tử**                                                                                              | **Nhóm / Mô tả**                                         |
+|-----------------------------------------------------------------------------------------------------------|----------------------------------------------------------|
+| `x.y`, `f(x)`, `a[i]`, `x?.y`, `x?[i]`, `x++`, `x--`, `x!`, `new`, `typeof`, `checked`, `default`, `nameof`, `delegate`, `sizeof`, `stackalloc`, `x => y` | **Primary** (ưu tiên cao nhất)                         |
+| `+x`, `-x`, `!x`, `~x`, `++x`, `--x`, `^x`, `(T)x`, `await`, `&x`, `*x`, `true`, `false`                  | **Unary**                                               |
+| `x..y`                                                                                                    | **Range**                                               |
+| `switch`, `with`                                                                                          | **Switch và With expressions**                          |
+| `x * y`, `x / y`, `x % y`                                                                                 | **Multiplicative**                                      |
+| `x + y`, `x - y`                                                                                          | **Additive**                                            |
+| `x << y`, `x >> y`, `x >>> y`                                                                             | **Shift**                                               |
+| `x < y`, `x > y`, `x <= y`, `x >= y`, `is`, `as`                                                          | **Relational và Type-testing**                         |
+| `x == y`, `x != y`                                                                                        | **Equality**                                            |
+| `x & y`                                                                                                   | **Boolean logic AND** hoặc **bitwise AND**             |
+| `x ^ y`                                                                                                   | **Boolean logic XOR** hoặc **bitwise XOR**             |
+| `x \| y`                                                                                                  | **Boolean logic OR** hoặc **bitwise OR**               |
+| `x && y`                                                                                                  | **Conditional AND** (AND rút gọn)                      |
+| `x \|\| y`                                                                                                 | **Conditional OR** (OR rút gọn)                        |
+| `x ?? y`                                                                                                  | **Null-coalescing operator**                           |
+| `x ? y : z`                                                                                               | **Toán tử điều kiện ba ngôi (ternary)**                |
+| `x = y`, `x += y`, `x -= y`, `x *= y`, `x /= y`, `x %= y`, `x &= y`, `x ^= y`, `x \|= y`, `x <<= y`, `x >>= y`, `x >>>= y`, `x ??= y`, `=>` | **Assignment & Lambda** (ưu tiên thấp nhất)         |
+
+- Biểu thức trong C# được đánh giá từ trái sang phải hoặc phải sang trái tùy vào nhóm toán tử.
+
+- Để ưu tiên đánh giá theo ý bạn, nên dùng dấu ngoặc `()`.
+
+
+
+
+
+
+
+
+
+
+
+
+# Link tham khảo
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/conditional-operator
+
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/boolean-logical-operators
+
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/comparison-operators#less-than-or-equal-operator-
+
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/equality-operators#code-try-0
+
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/arithmetic-operators#code-try-6
+
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/pointer-related-operators#pointer-indirection-operator-
+
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/arithmetic-operators#code-try-6
+
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/assignment-operator#code-try-3
+
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/
+
+# HASHTAG
+
+`Csharp-in-5-weeks` `Csharp`
+
+# Author
+
+[Dexter](https://github.com/TongTrungKien)
