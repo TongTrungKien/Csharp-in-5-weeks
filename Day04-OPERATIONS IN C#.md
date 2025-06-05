@@ -446,7 +446,7 @@ Console.WriteLine(b + a == a + b);     // output: False
 ```
 - So sánh delegate rất nhạy cảm: chỉ bằng nhau khi toàn bộ danh sách gọi giống nhau về số lượng, thứ tự và cả “receiver” (đối tượng chứa phương thức).
 
-### TOÁN TỬ SO SÁNH KHÁC NHAU `!=` (Inequality operator)
+## TOÁN TỬ SO SÁNH KHÁC NHAU `!=` (Inequality operator)
 
 Toán tử `!=` trả về `true` nếu hai toán hạng **không bằng nhau**, và trả về `false` nếu chúng bằng nhau.  
 Đối với các kiểu dữ liệu dựng sẵn (built-in types), biểu thức `x != y` tương đương với `!(x == y)`.
@@ -473,17 +473,67 @@ Console.WriteLine(o1 != o2); // output: True
 
 - Với `reference type`: mặc định so sánh địa chỉ bộ nhớ (trừ khi overload)
 
-## KHẲ NĂNG OVERLOAD TOÁN TỬ (Operator overloadability)
 
-Kiểu do người dùng định nghĩa (user-defined type) có thể **overload toán tử `==` và `!=`**.  
-Nếu overload một trong hai, bạn **bắt buộc phải overload cả hai** để tránh lỗi biên dịch và hành vi không nhất quán.
+## TOÁN TỬ NHỎ HƠN (Less than operator) `<`
 
-Đối với kiểu `record`, bạn **không thể override trực tiếp** toán tử `==` và `!=`.  
-Nếu cần thay đổi hành vi mặc định của `record` khi so sánh, hãy cài đặt interface `IEquatable<T>` và override phương thức `Equals`.
+Trả về `true` nếu toán hạng bên trái **nhỏ hơn** toán hạng bên phải trả về `false` nếu không đúng.
 
-**Cú pháp:**
+```csharp
+Console.WriteLine(1 < 2);           // True
+Console.WriteLine(1.1 < 1.1);       // False
+Console.WriteLine(2.1 < 1.1);       // False
+Console.WriteLine(double.NaN < 1.1); // False
+```
+
+## TOÁN TỬ LỚN HƠN (Greater than) `>`
+
+Trả về true nếu toán hạng bên trái lớn hơn toán hạng bên phải.
+
+```csharp
+Console.WriteLine(2 > 1);           // True
+Console.WriteLine(1.1 > 1.1);       // False
+Console.WriteLine(1.1 > 2.1);       // False
+Console.WriteLine(double.NaN > 1.1); // False
+```
+
+## TOÁN TỬ NHỎ HƠN HOẶC BẰNG (Less than or equal) `<=`
+Trả về `true` nếu toán hạng bên trái nhỏ hơn hoặc bằng toán hạng bên phải.
+
+```csharp
+Console.WriteLine(1 <= 2);           // True
+Console.WriteLine(1.1 <= 1.1);       // True
+Console.WriteLine(2.1 <= 1.1);       // False
+Console.WriteLine(double.NaN <= 1.1); // False
+```
+
+## TOÁN TỬ LỚN HƠN HOẶC BẰNG (Greater than or equal) `>=`
+
+Trả về `true` nếu toán hạng bên trái lớn hơn hoặc bằng toán hạng bên phải.
+
+```csharp
+Console.WriteLine(2 >= 1);           // True
+Console.WriteLine(1.1 >= 1.1);       // True
+Console.WriteLine(1.1 >= 2.1);       // False
+Console.WriteLine(double.NaN >= 1.1); // False
+```
+>Lưu ý: Nếu bất kỳ toán hạng nào là NaN (Not a Number), thì kết quả của các phép so sánh đều là false, bao gồm cả == và !=.
+
+## KHẢ NĂNG OVERLOAD CỦA CÁC TOÁN TỬ SO SÁNH (Operator overloadability)
+
+Các kiểu do người dùng định nghĩa (`class`, `struct`) **có thể overload** các toán tử so sánh như `==`, `!=`, `<`, `>`, `<=`, `>=` để tùy chỉnh hành vi so sánh.
+
+- Nếu bạn [overload](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/operator-overloading) một trong hai toán tử `==` hoặc `!=`, thì **bắt buộc phải overload cả hai** để đảm bảo tính nhất quán.
+- Tương tự, nếu bạn overload một trong hai toán tử `<` hoặc `>`, thì **cũng phải overload cả hai**.  
+- Và nếu overload `<=` hoặc `>=`, thì **cả hai cũng phải được định nghĩa lại cùng lúc**.
+
+> Nếu bạn chỉ overload một toán tử mà bỏ qua toán tử còn lại, chương trình sẽ **không biên dịch được**.
+
+---
+
+### Với kiểu `record`:
+Các kiểu `record` **không thể override trực tiếp** toán tử `==` và `!=`.  
+Nếu bạn cần tùy chỉnh cách so sánh của record, hãy cài đặt interface [`IEquatable<T>`](https://learn.microsoft.com/en-us/dotnet/api/system.iequatable-1.equals) và ghi đè phương thức `Equals` theo mẫu:
 
 ```csharp
 public virtual bool Equals(T? other);
 ```
--Khi override `==`, luôn đảm bảo `!=` trả về phủ định của `==` để duy trì tính nhất quán.
