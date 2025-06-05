@@ -837,8 +837,58 @@ a + b - c  // được hiểu là: (a + b) - c
 x = y = z; // được hiểu là: x = (y = z)
 ```
 
+### Ghi chú quan trọng về toán tử null-chaining (`?.`)
 
+```csharp
+P?.A0?.A1
+```
 
+Nếu `P` là `null`, **thì cả `A0` và `A1` đều không được đánh giá**.  
+
+Tương tự, trong:
+
+```csharp
+P?.A0.A1
+```
+
+→ Nếu `P` là `null`, **`A0` cũng không được đánh giá**.
+
+Tham khảo thêm: [C# language specification - operator associativity](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/expressions#operator-associativity)
+
+---
+
+###  Ví dụ về ảnh hưởng của kết hợp
+
+```csharp
+int a = 13 / 5 / 2;
+int b = 13 / (5 / 2);
+Console.WriteLine($"a = {a}, b = {b}");
+// Output: a = 1, b = 6
+```
+
+- Dòng `int a = 13 / 5 / 2;` thực hiện theo **kết hợp trái**:
+  → `(13 / 5) / 2 = 2 / 2 = 1`
+
+- Dòng `int b = 13 / (5 / 2);` có dấu ngoặc → thay đổi thứ tự thực hiện:
+  → `5 / 2 = 2 → 13 / 2 = 6`
+
+---
+
+###  Mẹo
+
+> **Luôn dùng dấu ngoặc `()` nếu bạn muốn kiểm soát rõ ràng thứ tự đánh giá toán tử**, đặc biệt trong biểu thức dài, dễ gây hiểu nhầm.
+---
+
+# Kết
+Qua bài học hôm nay, bạn đã nắm được **hệ thống toàn diện các toán tử trong C#** — từ cơ bản như **gán, số học, so sánh**, cho đến nâng cao như **toán tử điều kiện `?:`**, **overload**, **kết hợp**, và **ưu tiên toán tử**.
+
+Việc hiểu rõ từng loại toán tử không chỉ giúp bạn **viết mã hiệu quả hơn**, mà còn tránh được những lỗi logic khó phát hiện trong thực tế.  
+Đặc biệt, những khái niệm như **short-circuit**, **target typing**, hay **conditional `ref`** sẽ rất hữu ích khi bạn làm việc với các biểu thức phức tạp trong các dự án thực tế.
+
+> 💡 **Hãy nhớ:** Viết code tốt không chỉ là làm cho nó chạy được — mà là **làm cho nó rõ ràng, đúng, và dễ bảo trì**.  
+> Và toán tử, chính là công cụ quan trọng để đạt được điều đó.
+
+Hẹn gặp lại bạn trong những bài tiếp theo! 
 # Link tham khảo
 https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/conditional-operator
 
