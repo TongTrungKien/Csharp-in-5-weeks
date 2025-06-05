@@ -300,7 +300,190 @@ Console.WriteLine(5.9m % 3.1m);  // output: 2.8
 | `<=`    | Nhỏ hơn hoặc bằng         | `5 <= 5`      | `true`  |
 | `>=`    | Lớn hơn hoặc bằng         | `6 >= 2`      | `true`  |
 
-## TOÁN TỬ BẰNG NHAU & KHÁC NHAU `==` `!=`
+## TOÁN TỬ BẰNG NHAU `==` 
 
-Toán tử bằng (`==`) và khác (`!=`) dùng để so sánh giá trị của hai toán hạng, trả về kết quả kiểu `bool`
+Toán tử so sánh bằng `==` trả về `true` nếu hai toán hạng bằng nhau, ngược lại trả về `false`.
 
+### SO SÁNH GIÁ TRỊ TRONG C#
+
+- Các toán hạng của [kiểu giá trị dựng sẵn](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-types#built-in-value-types) được xem là bằng nhau nếu giá trị của chúng bằng nhau.
+
+```csharp
+int a = 1 + 2 + 3;
+int b = 6;
+Console.WriteLine(a == b);  // output: True
+char c1 = 'a';
+char c2 = 'A';
+Console.WriteLine(c1 == c2);  // output: False
+Console.WriteLine(c1 == char.ToLower(c2));  // output: True
+```
+> **Giải thích**:
+> - `a == b`: So sánh hai giá trị `int` – bằng nhau nên kết quả là `True`.
+> - `c1 == c2`: So sánh hai ký tự `'a'` và `'A'` – khác mã Unicode, kết quả là `False`.
+> - `char.ToLower(c2)` chuyển `'A'` thành `'a'`, nên `c1 == char.ToLower(c2)` → `True`.
+>  Kiểu `int` và `char` là **kiểu giá trị (value types)**, nên toán tử `==` so sánh **giá trị thật sự bên trong**, không phải địa chỉ bộ nhớ.
+
+> **Lưu ý**: Đối với các toán tử `==`, [`!=`, `<`, `>`, `<=`, `>=`](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/comparison-operators), nếu một trong hai toán hạng là `NaN` ([`double.NaN`](https://learn.microsoft.com/en-us/dotnet/api/system.double.nan#system-double-nan), [`float.NaN`](https://learn.microsoft.com/en-us/dotnet/api/system.single.nan#system-single-nan)), kết quả luôn là `false`.  
+> Nếu cần kiểm tra giá trị có phải `NaN` không, hãy dùng `Double.IsNaN(x)` hoặc `Single.IsNaN(x)`.
+
+```csharp
+double x = double.NaN;
+Console.WriteLine(Double.IsNaN(x)); // True
+```
+
+### SO SÁNH KIỂU THAM CHIẾU (Reference types equality)
+
+Mặc định, các đối tượng kiểu **tham chiếu** (trừ `record`) được xem là **bằng nhau (`==`) chỉ khi chúng cùng tham chiếu đến một đối tượng trong bộ nhớ** (tức là cùng địa chỉ).
+
+**Ví dụ:**
+
+```csharp
+public class ReferenceTypesEquality
+{
+    public class MyClass
+    {
+        private int id;
+
+        public MyClass(int id) => this.id = id;
+    }
+
+    public static void Main()
+    {
+        var a = new MyClass(1);
+        var b = new MyClass(1);
+        var c = a;
+
+        Console.WriteLine(a == b);  // output: False
+        Console.WriteLine(a == c);  // output: True
+    }
+}
+```
+- `a` và `b` là hai đối tượng khác nhau, mặc dù có cùng nội dung `(id = 1)` → `a == b` là `false
+- `c` tham chiếu cùng đối tượng với `a` → `a == c` là `tru`e
+
+> Lưu ý:
+Như ví dụ cho thấy, các kiểu tham chiếu do người dùng định nghĩa hỗ trợ toán tử `==` theo mặc định.
+Tuy nhiên, một kiểu tham chiếu có thể định nghĩa lại (overload) toán tử `==`.
+Nếu điều đó xảy ra, hãy sử dụng phương thức [Object.ReferenceEquals](https://learn.microsoft.com/en-us/dotnet/api/system.object.referenceequals) để kiểm tra xem hai tham chiếu có trỏ tới cùng một đối tượng hay không.
+
+### SO SÁNH KIỂU `record` (Record types equality)
+
+Kiểu `record` trong C# hỗ trợ toán tử `==` và `!=` mặc định với ngữ nghĩa **so sánh theo giá trị**. Hai record được xem là bằng nhau khi cả hai cùng `null` hoặc tất cả các trường và thuộc tính tự động có giá trị tương ứng bằng nhau. Trong ví dụ dưới đây, `p1` và `p2` khác nhau vì giá trị các trường khác nhau, còn `p1` và `p3` bằng nhau vì mọi trường đều giống nhau:
+
+```csharp
+public class RecordTypesEquality
+{
+    public record Point(int X, int Y, string Name);
+    public record TaggedNumber(int Number, List<string> Tags);
+
+    public static void Main()
+    {
+        var p1 = new Point(2, 3, "A");
+        var p2 = new Point(1, 3, "B");
+        var p3 = new Point(2, 3, "A");
+
+        Console.WriteLine(p1 == p2);  // output: False
+        Console.WriteLine(p1 == p3);  // output: True
+
+        var n1 = new TaggedNumber(2, new List<string>() { "A" });
+        var n2 = new TaggedNumber(2, new List<string>() { "A" });
+        Console.WriteLine(n1 == n2);  // output: False
+    }
+}
+```
+
+- Tuy nhiên, nếu record chứa thành viên là kiểu tham chiếu như `List<string>`, thì phần đó vẫn được so sánh theo địa chỉ bộ nhớ, chứ không so sánh nội dung. Vì `n1.Tags` và `n2.Tags` là hai danh sách khác nhau, dù có cùng phần tử "`A`", thì `n1 == n2` vẫn là `false`.
+
+- Muốn so sánh nội dung của các thành viên tham chiếu trong record, bạn cần override logic so sánh hoặc kiểm tra từng phần tử bằng cách thủ công (ví dụ dùng `SequenceEqual()` cho danh sách).
+
+### SO SÁNH CHUỖI (String equality)
+
+Hai chuỗi [`string`](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/reference-types#the-string-type) được xem là bằng nhau khi cả hai đều `null`, hoặc chúng có cùng độ dài và từng ký tự tại mỗi vị trí đều giống nhau (theo mã Unicode). So sánh mặc định là **phân biệt chữ hoa/thường** (case-sensitive, ordinal). Trong ví dụ dưới đây, `s1` và `s2` khác nhau về chữ hoa/thường nhưng khi chuyển `s2` về chữ thường thì hai chuỗi bằng nhau:
+
+```csharp
+string s1 = "hello!";
+string s2 = "HeLLo!";
+Console.WriteLine(s1 == s2.ToLower());  // output: True
+
+string s3 = "Hello!";
+Console.WriteLine(s1 == s3);  // output: False
+```
+- Nếu muốn so sánh không phân biệt hoa thường hoặc theo tiêu chí văn hóa cụ thể, bạn có thể dùng `string.Equals(s1, s2, StringComparison.OrdinalIgnoreCase)` hoặc [các so sánh chuỗi trong C#](https://learn.microsoft.com/en-us/dotnet/csharp/how-to/compare-strings) khác
+
+
+### SO SÁNH DELEGATE (Delegate equality)
+
+Hai [delegate](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/delegates/) được xem là bằng nhau khi cả hai cùng `null`, hoặc khi chúng có cùng kiểu, cùng số lượng phần tử trong danh sách thực thi (`invocation list`) và từng phần tử ở các vị trí tương ứng bằng nhau. Ví dụ dưới đây cho thấy hai delegate `b` và `c` khác nhau về tham chiếu (object.ReferenceEquals là false) nhưng bằng nhau về nội dung nên `b == c` là `true`:
+
+```csharp
+Action a = () => Console.WriteLine("a");
+
+Action b = a + a;
+Action c = a + a;
+Console.WriteLine(Object.ReferenceEquals(b, c)); // output: False
+Console.WriteLine(b == c);                       // output: True
+```
+- Tuy nhiên, nếu danh sách gọi của delegate chứa các phương thức từ hai đối tượng khác nhau (receiver khác nhau), thì hai delegate sẽ không bằng nhau:
+
+```csharp
+var o1 = new object();
+var o2 = new object();
+var d1 = o1.ToString;
+var d2 = o2.ToString;
+Console.WriteLine(Object.ReferenceEquals(d1, d2)); // output: False
+Console.WriteLine(d1 == d2);                       // output: False
+```
+- Để biết thêm thông tin, hãy xem phần [Toán tử so sánh delegate](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/expressions#12129-delegate-equality-operators) trong [đặc tả ngôn ngữ C#](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/readme).
+- Ngoài ra, hai [lambda](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/lambda-expressions) giống hệt nhau về logic nhưng được tạo độc lập cũng sẽ không bằng nhau:
+
+```csharp 
+Action a = () => Console.WriteLine("a");
+Action b = () => Console.WriteLine("a");
+
+Console.WriteLine(a == b);             // output: False
+Console.WriteLine(a + b == a + b);     // output: True
+Console.WriteLine(b + a == a + b);     // output: False
+```
+- So sánh delegate rất nhạy cảm: chỉ bằng nhau khi toàn bộ danh sách gọi giống nhau về số lượng, thứ tự và cả “receiver” (đối tượng chứa phương thức).
+
+### TOÁN TỬ SO SÁNH KHÁC NHAU `!=` (Inequality operator)
+
+Toán tử `!=` trả về `true` nếu hai toán hạng **không bằng nhau**, và trả về `false` nếu chúng bằng nhau.  
+Đối với các kiểu dữ liệu dựng sẵn (built-in types), biểu thức `x != y` tương đương với `!(x == y)`.
+
+**Ví dụ:**
+
+```csharp
+int a = 1 + 1 + 2 + 3;
+int b = 6;
+Console.WriteLine(a != b); // output: True
+
+string s1 = "Hello";
+string s2 = "Hello";
+Console.WriteLine(s1 != s2); // output: False
+
+object o1 = 1;
+object o2 = 1;
+Console.WriteLine(o1 != o2); // output: True
+```
+
+- `!=` là toán tử ngược logic với `==`, và hành vi phụ thuộc vào loại dữ liệu:
+
+- Với `value type`: so sánh giá trị
+
+- Với `reference type`: mặc định so sánh địa chỉ bộ nhớ (trừ khi overload)
+
+## KHẲ NĂNG OVERLOAD TOÁN TỬ (Operator overloadability)
+
+Kiểu do người dùng định nghĩa (user-defined type) có thể **overload toán tử `==` và `!=`**.  
+Nếu overload một trong hai, bạn **bắt buộc phải overload cả hai** để tránh lỗi biên dịch và hành vi không nhất quán.
+
+Đối với kiểu `record`, bạn **không thể override trực tiếp** toán tử `==` và `!=`.  
+Nếu cần thay đổi hành vi mặc định của `record` khi so sánh, hãy cài đặt interface `IEquatable<T>` và override phương thức `Equals`.
+
+**Cú pháp:**
+
+```csharp
+public virtual bool Equals(T? other);
+```
+-Khi override `==`, luôn đảm bảo `!=` trả về phủ định của `==` để duy trì tính nhất quán.
