@@ -16,7 +16,7 @@ Console.WriteLine("Hello, World");
 - Dòng bắt đầu bằng `//` là một chú thích đơn. Chú thích dòng đơn của C# bắt đầu bằng `//` và tiếp tục đến cuối dòng.
 - Hiện tại C# cũng hỗ trợ chú thích nhiều dòng. Chú thích nhiều dòng bắt đầu bằng `/*` và kết thúc bằng `*/`
 
-`WriteLine` là phương thức (Method) của lớp (class) `Console` nằm trong `System` không gian tên (namespace), tạo ra đầu ra của chương trình. Lớp này được cung cấp bải các thư viện class chuẩn, theo mặc định, được tự động tham chiếu trong mọi chương trình **C#**
+`WriteLine` là phương thức (Method) của lớp (class) `Console` nằm trong `System` không gian tên (namespace), tạo ra đầu ra của chương trình. Lớp này được cung cấp bởi các thư viện class chuẩn, theo mặc định, được tự động tham chiếu trong mọi chương trình **C#**
 
 Một dạng chương trình khác yêu cầu bạn khai báo class và method chứa cho điểm vào của chương trình. Trình biên dịch tổng hợp các thành phần này khi bạn sử dụng các câu lệnh cấp cao nhất.
 Định dạng thay thế này vẫn còn hiệu lực và chứa nhiều khái niệm cơ bản trong tất cả các chương trình **C#**. Nhiều mẫu **C#** hiện có sử dụng định dạng tương đương sau:
