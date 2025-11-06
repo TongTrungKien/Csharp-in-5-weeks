@@ -69,7 +69,7 @@ Bạn đã sử dụng `+` để xây dựng chuỗi từ các biến và chuỗ
 
 Quá trình này được gọi là [nội suy chuỗi](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/interpolated).
 
-Nếu bạn thêm a `$` trước dấu ngoặc kép mở đầu của chuỗi, bạn có thể bao gồm các biến, như `aFriend`, bên trong chuỗi giữa các dấu ngoặc nhọn. Hãy thử xem:
+Nếu bạn thêm `$` trước dấu ngoặc kép mở đầu của chuỗi, bạn có thể bao gồm các biến, như `aFriend`, bên trong chuỗi giữa các dấu ngoặc nhọn. Hãy thử xem:
 
 Chọn Chạy lại để xem kết quả. Thay vì "Xin chào {aFriend}", thông báo sẽ là "Xin chào Maira".
 
