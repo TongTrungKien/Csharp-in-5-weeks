@@ -23,7 +23,6 @@ Một dạng chương trình khác yêu cầu bạn khai báo class và method c
 
 ```typescript
 using System;
-using TourOfCsharp;
 
 class Program
 {
