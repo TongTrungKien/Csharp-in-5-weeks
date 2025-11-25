@@ -285,4 +285,65 @@ if (condition1)
 
 - Mỗi nhánh if cần kiểm tra thêm điều kiện con mà không thể kiểm tra đồng thời với các nhánh khác.
 
+***Ví dụ***
+
+```csharp
+int age = 25;
+bool hasPassport = true;
+
+if (age >= 18)
+{
+    if (hasPassport)
+    {
+        Console.WriteLine("Bạn có thể đi du lịch.");
+    }
+    else
+    {
+        Console.WriteLine("Bạn cần có hộ chiếu để đi du lịch.");
+    }
+}
+else
+{
+    Console.WriteLine("Bạn chưa đủ tuổi để đi du lịch.");
+}
+```
+
+***Giai thích***:
+- Nếu `age >= 18` là `true`, chương trình sẽ kiểm tra `hasPassport`.
+- Nếu cả hai điều kiện đều đúng, chương trình sẽ in ra "Bạn có thể đi du lịch."
+- Nếu `hasPassport` là `false`, chương trình sẽ in ra "Bạn cần có hộ chiếu để đi du lịch."
+- Nếu `age < 18`, chương trình sẽ in ra "Bạn chưa đủ tuổi để đi du lịch."
+
+***Lưu ý***: Nếu có thể, hãy sử dụng `else if` thay vì `if` lồng nhau để code dễ đọc hơn.
+
+```csharp
+if (age >= 18 && hasPassport)
+{
+    Console.WriteLine("Bạn có thể đi du lịch.");
+}
+else if (age >= 18 && !hasPassport)
+{
+    Console.WriteLine("Bạn cần có hộ chiếu để đi du lịch.");
+}
+else
+{
+    Console.WriteLine("Bạn chưa đủ tuổi để đi du lịch.");
+}
+```
+## Ưu và nhược điểm
+
+### Ưu điểm
+
+- Rõ ràng và dễ hiểu: Nếu các điều kiện thực sự phụ thuộc lẫn nhau, sử dụng if lồng nhau có thể làm mã nguồn dễ hiểu và dễ theo dõi.
+
+- Chính xác: Giúp thực thi các điều kiện kiểm tra chi tiết hơn.
+
+## Nhược điểm
+
+- Khó đọc: Khi có quá nhiều cấp lồng nhau, mã có thể trở nên khó đọc và bảo trì, nhất là khi điều kiện nhiều hoặc phức tạp.
+
+- Cần nhiều dấu ngoặc nhọn: Nếu bạn lồng quá nhiều if, sẽ gây khó khăn trong việc theo dõi từng cấp lệnh.
+
+- Có thể làm tăng độ phức tạp của chương trình: Quá nhiều if lồng nhau có thể dẫn đến lỗi logic hoặc lỗi không mong muốn trong quá trình bảo trì.
+
 
