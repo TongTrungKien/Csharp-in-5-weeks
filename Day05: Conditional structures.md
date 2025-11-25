@@ -261,6 +261,28 @@ Với number = -5:
 Điều kiện number > 0 là false, nên in "Số không dương".
 ```
 
+# Câu lệnh `if` lồng nhau (nested if)
 
+Câu lệnh `if` lồng nhau (nested if) là khi một câu lệnh `if` hoặc `if-else` được đặt **bên trong thân của một câu lệnh `if` hoặc `else` khác**. Điều này thường xảy ra khi bạn cần kiểm tra nhiều điều kiện liên tiếp mà mỗi điều kiện phụ thuộc vào kết quả của điều kiện trước đó.
+
+***Cú pháp***
+
+```csharp
+if (condition1)
+{
+    if (condition2)
+    {
+        // Các câu lệnh sẽ thực thi nếu cả condition1 và condition2 đều đúng
+    }
+}
+```
+
+## Khi nào sử dụng nested `if` thay vì `else if`
+
+- Có thể sử dụng `if` lồng nhau (nested `if`) khi:
+
+- Điều kiện bên trong phụ thuộc vào kết quả của điều kiện bên ngoài.
+
+- Mỗi nhánh if cần kiểm tra thêm điều kiện con mà không thể kiểm tra đồng thời với các nhánh khác.
 
 
