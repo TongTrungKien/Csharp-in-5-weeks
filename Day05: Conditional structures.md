@@ -140,6 +140,127 @@ if (obj != null && obj.Age > 18) // An toàn, chỉ kiểm tra Age khi obj != nu
 
     - Gán giá trị đơn giản theo điều kiện → có thể dùng toán tử `?:`.
 
+# Câu lệnh `if-else` 
+
+## Cách hoạt động của nhánh `else`
+
+Câu lệnh `if-else` cho phép bạn **chọn một trong hai nhánh lệnh** để thực thi, tùy thuộc vào kết quả của biểu thức điều kiện.
+
+- Nếu điều kiện trong `if` **đúng** (evaluates to `true`), thì khối lệnh trong `if` sẽ được thực thi.
+- Nếu điều kiện trong `if` **sai** (evaluates to `false`), khối lệnh trong `else` sẽ được thực thi.
+
+***Cú pháp:***
+
+```csharp
+if (condition)
+{
+    // Câu lệnh thực thi khi điều kiện đúng (true)
+}
+else
+{
+    // Câu lệnh thực thi khi điều kiện sai (false)
+}
+```
+
+## Khi nào nên sử dụng `if-else` thay vì `if` đơn?
+
+Dùng `if-else` khi cần kiểm tra và thực hiện hai hành động đối lập nhau (một cái thực thi khi đúng, cái còn lại khi sai).
+
+Nếu chỉ có một hành động cần thực thi khi điều kiện đúng và không cần gì khi điều kiện sai, thì có thể dùng `if` đơn mà không cần else.
+
+***Ví dụ:***
+
+- Dùng if-else khi bạn cần xử lý hai trường hợp khác nhau:
+
+```csharp
+if (score >= 60)
+{
+    Console.WriteLine("Đạt yêu cầu");
+}
+else
+{
+    Console.WriteLine("Không đạt yêu cầu");
+}
+```
+- Dùng if đơn nếu không cần làm gì khi điều kiện sai:
+
+```csharp
+if (score >= 60)
+{
+    Console.WriteLine("Đạt yêu cầu");
+}
+```
+## Ví dụ minh họa
+
+```csharp
+DisplayWeatherReport(15.0);  // Output: Cold.
+DisplayWeatherReport(24.0);  // Output: Perfect!
+
+void DisplayWeatherReport(double tempInCelsius)
+{
+    if (tempInCelsius < 20.0)
+    {
+        Console.WriteLine("Cold.");
+    }
+    else
+    {
+        Console.WriteLine("Perfect!");
+    }
+}
+```
+***Kết quả***
+
+```csharp
+Nếu tempInCelsius nhỏ hơn 20 → in “Cold.”
+
+Nếu không, sẽ in “Perfect!”
+```
+
+## So sánh logic giữa hai nhánh `true` / `false`
+
+- Nhánh `true`: Sẽ thực thi khi biểu thức điều kiện trong if là `true`.
+
+- Nhánh `false`: Sẽ thực thi khi biểu thức điều kiện trong if là `false`, nghĩa là điều kiện không được thỏa mãn.
+
+***Ví dụ***
+
+```csharp
+int number = 10;
+
+if (number > 0)               // Điều kiện đúng
+{
+    Console.WriteLine("Số dương");
+}
+else
+{
+    Console.WriteLine("Số không dương");
+}
+
+number = -5;
+
+if (number > 0)               // Điều kiện sai
+{
+    Console.WriteLine("Số dương");
+}
+else
+{
+    Console.WriteLine("Số không dương");
+}
+```
+
+***Kết quả***
+
+```csharp
+
+Với number = 10:
+
+Điều kiện number > 0 là true, nên in "Số dương".
+---------------------------------------------------------
+Với number = -5:
+
+Điều kiện number > 0 là false, nên in "Số không dương".
+```
+
 
 
 
