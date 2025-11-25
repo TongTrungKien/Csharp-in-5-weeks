@@ -140,6 +140,8 @@ if (obj != null && obj.Age > 18) // An toàn, chỉ kiểm tra Age khi obj != nu
 
     - Gán giá trị đơn giản theo điều kiện → có thể dùng toán tử `?:`.
 
+
+
 # Câu lệnh `if-else` 
 
 ## Cách hoạt động của nhánh `else`
@@ -261,6 +263,7 @@ Với number = -5:
 Điều kiện number > 0 là false, nên in "Số không dương".
 ```
 
+
 # Câu lệnh `if` lồng nhau (nested if)
 
 Câu lệnh `if` lồng nhau (nested if) là khi một câu lệnh `if` hoặc `if-else` được đặt **bên trong thân của một câu lệnh `if` hoặc `else` khác**. Điều này thường xảy ra khi bạn cần kiểm tra nhiều điều kiện liên tiếp mà mỗi điều kiện phụ thuộc vào kết quả của điều kiện trước đó.
@@ -346,4 +349,212 @@ else
 
 - Có thể làm tăng độ phức tạp của chương trình: Quá nhiều if lồng nhau có thể dẫn đến lỗi logic hoặc lỗi không mong muốn trong quá trình bảo trì.
 
+# Kết luận
 
+- **Sử dụng khi**: Các điều kiện phụ thuộc lẫn nhau và cần kiểm tra chi tiết từng trường hợp.
+- **Tránh khi**: Có thể sử dụng các cấu trúc điều khiển khác như `else if` hoặc `switch` để làm cho mã dễ đọc hơn.
+
+
+# Toán tử điều kiện (toán tử 3 ngôi) `?:`
+     Các bạn có thể đọc ở [Day 4](https://github.com/TongTrungKien/Csharp-in-5-weeks/blob/main/Day04-OPERATIONS%20IN%20C%23.md) cũng đã viết về toán tử 3 ngôi `?:`
+### Vai trò và cú pháp tổng quát
+
+Toán tử điều kiện, hay còn gọi là toán tử 3 ngôi (`?:`), được dùng để **lựa chọn giữa hai giá trị** tùy thuộc vào một biểu thức điều kiện. Đây là cách rút gọn của câu lệnh `if-else` trong một dòng, giúp mã ngắn gọn và dễ đọc hơn.
+
+Cú pháp:
+
+```csharp
+condition ? valueIfTrue : valueIfFalse;
+```
+- **Thành phần**:
+    - `condition`: Biểu thức điều kiện (true/false).
+    - `valueIfTrue`: Giá trị trả về nếu `condition` true.
+    - `valueIfFalse`: Giá trị trả về nếu `condition` false.
+    
+***Ví dụ***
+```csharp
+int number = 10;
+string result = (number > 5) ? "Lớn hơn 5" : "Nhỏ hơn hoặc bằng 5";
+Console.WriteLine(result); // Output: "Lớn hơn 5"
+```
+- **Giải thích**: Nếu `number > 5` đúng, `result` sẽ nhận giá trị `"Lớn hơn 5"`, ngược lại nhận `"Nhỏ hơn hoặc bằng 5"`.
+
+### Ưu điểm
+- **Gọn gàng**: Giảm số dòng mã so với `if-else` truyền thống.
+- **Đọc dễ hiểu**: Khi biểu thức đơn giản, toán tử 3 ngôi có thể dễ đọc hơn.
+
+### Nhược điểm
+- **Khó đọc**: Nếu biểu thức phức tạp, toán tử 3 ngôi có thể làm mã khó hiểu hơn.
+- **Không linh hoạt**: Chỉ có thể xử lý hai trường hợp (true/false), không thể lồng nhiều điều kiện như `if-else if-else`.
+
+### Kết luận
+- **Sử dụng khi**: Biểu thức điều kiện đơn giản, chỉ cần chọn giữa hai giá trị.
+- **Tránh khi**: Biểu thức phức tạp hoặc cần nhiều trường hợp xử lý.
+
+***Ví dụ***
+```csharp
+int a = 10, b = 20;
+string max = (a > b) ? "a lớn hơn b" : (a == b) ? "a bằng b" : "b lớn hơn a";
+Console.WriteLine(max); // Output: "b lớn hơn a"
+```
+- **Giải thích**: Nếu `a > b` đúng, `max` nhận giá trị `"a lớn hơn b"`. Nếu không, kiểm tra `a == b` và trả về `"a bằng b"`. Nếu cả hai điều kiện đều sai, trả về `"b lớn hơn a"`.
+---
+
+#### Toán tử điều kiện `?:` rất hữu ích trong các tình huống cần gán giá trị nhanh hoặc trả về kết quả dựa trên một điều kiện đơn giản. Tuy nhiên, khi điều kiện trở nên phức tạp hoặc có nhiều nhánh, bạn nên cân nhắc sử dụng các cấu trúc điều khiển khác như if-else để đảm bảo mã nguồn rõ ràng và dễ bảo trì.
+
+### **Tóm lại**:
+
+- **Ưu điểm**: Ngắn gọn, dễ hiểu khi sử dụng cho điều kiện đơn giản.
+- **Nhược điểm**: Không phù hợp cho điều kiện logic phức tạp hoặc lồng nhau.
+
+# Câu lệnh `switch`
+
+Câu lệnh `switch` trong C# được sử dụng để kiểm tra một **biểu thức** (expression) và **so khớp** với một số **nhánh `case`**. Mỗi nhánh `case` đại diện cho một giá trị hoặc điều kiện cụ thể. Nếu biểu thức khớp với giá trị của một nhánh `case`, khối lệnh của nhánh đó sẽ được thực thi.
+
+Cú pháp cơ bản của `switch`:
+
+```csharp
+switch (expression)
+{
+    case value1:
+        // Câu lệnh thực thi khi expression == value1
+        break;
+    case value2:
+        // Câu lệnh thực thi khi expression == value2
+        break;
+    default:
+        // Câu lệnh thực thi nếu không khớp với bất kỳ case nào
+        break;
+}
+```
+- `expression`: là biểu thức được kiểm tra, có thể là kiểu dữ liệu như số nguyên, chuỗi, hay kiểu dữ liệu khác.
+
+- `case value`: là các giá trị cụ thể cần so khớp với `expression`.
+
+- `default`: là nhánh được thực thi nếu không có `case` nào khớp với `expression`.
+
+
+***Ví dụ***
+
+```csharp
+DisplayMeasurement(-4);  // Output: Measured value is -4; too low.
+DisplayMeasurement(5);  // Output: Measured value is 5.
+DisplayMeasurement(30);  // Output: Measured value is 30; too high.
+DisplayMeasurement(double.NaN);  // Output: Failed measurement.
+
+void DisplayMeasurement(double measurement)
+{
+    switch (measurement)
+    {
+        case < 0.0:
+            Console.WriteLine($"Measured value is {measurement}; too low.");
+            break;
+
+        case > 15.0:
+            Console.WriteLine($"Measured value is {measurement}; too high.");
+            break;
+
+        case double.NaN:
+            Console.WriteLine("Failed measurement.");
+            break;
+
+        default:
+            Console.WriteLine($"Measured value is {measurement}.");
+            break;
+    }
+}
+```
+- `case < 0.0`: Kiểm tra nếu `measurement` nhỏ hơn 0.0.
+- `case > 15.0`: Kiểm tra nếu `measurement` lớn hơn 15.0.
+- `case double.NaN`: Kiểm tra nếu `measurement` là `NaN` (Not a Number).
+- `default`: Thực thi nếu không có trường hợp nào khớp.
+
+**Lưu ý**:
+- `switch` không hỗ trợ toán tử logic như `&&`, `||`, `!`, `==`, `!=`, `>`, `<`, `>=`, `<=`.
+- `switch` không hỗ trợ kiểu dữ liệu `float` và `decimal`.
+- `switch` không hỗ trợ kiểu dữ liệu `null`.
+- `switch` không hỗ trợ kiểu dữ liệu `object`.
+- `switch` không hỗ trợ kiểu dữ liệu `string` với toán tử `==` hoặc `!=`.
+
+# Tổng kết
+
+### So sánh `if`, `if-else`, `else if`, nested if
+
+- **`if`**: Được sử dụng khi chỉ cần kiểm tra một điều kiện đơn giản. Nếu điều kiện đúng, câu lệnh trong `if` sẽ được thực thi.
+  - Ví dụ: Kiểm tra số nguyên có dương hay không.
+  
+- **`if-else`**: Cho phép lựa chọn giữa hai nhánh điều kiện. Sử dụng khi có hai kết quả khả thi, một khi điều kiện đúng và một khi điều kiện sai.
+  - Ví dụ: Kiểm tra xem một số là chẵn hay lẻ.
+  
+- **`else if`**: Dùng khi có nhiều điều kiện cần kiểm tra theo thứ tự ưu tiên. Giống như `if-else`, nhưng cho phép kiểm tra nhiều điều kiện khác nhau.
+  - Ví dụ: Phân loại điểm số học sinh thành "Giỏi", "Khá", "Trung bình", "Yếu".
+  
+- **Nested if** (if lồng nhau): Dùng khi có nhiều điều kiện phụ thuộc vào nhau. Cấu trúc `if` được đặt trong một `if` hoặc `else` khác.
+  - Ví dụ: Kiểm tra độ tuổi và quốc tịch để quyết định có được cấp visa hay không.
+
+**Lưu ý**:
+- **`if`** phù hợp cho điều kiện đơn giản.
+- **`if-else`** và **`else if`** phù hợp khi có nhiều lựa chọn.
+- **Nested if** có thể khiến mã trở nên khó đọc, nên tránh nếu không cần thiết. Dùng các cấu trúc khác khi có thể.
+
+---
+
+### So sánh `if` với `switch`
+
+- **`if`**: Cấu trúc điều kiện rất linh hoạt, có thể xử lý mọi loại biểu thức điều kiện. Tuy nhiên, khi có quá nhiều điều kiện (nhất là kiểm tra nhiều giá trị của một biến), mã có thể trở nên dài dòng và khó đọc.
+  - **Ưu điểm**: Linh hoạt, có thể kiểm tra bất kỳ điều kiện nào.
+  - **Nhược điểm**: Khi điều kiện quá phức tạp hoặc có nhiều nhánh, dễ gây rối và khó bảo trì.
+
+- **`switch`**: Dùng khi bạn cần kiểm tra một biểu thức với nhiều giá trị cụ thể. `switch` thường dễ đọc hơn và hiệu quả hơn khi có nhiều nhánh.
+  - **Ưu điểm**: Rõ ràng, dễ hiểu khi có nhiều điều kiện cụ thể. Có thể hỗ trợ **pattern matching** trong các phiên bản C# mới.
+  - **Nhược điểm**: Chỉ hữu ích khi các điều kiện là **giá trị cụ thể**. Nếu điều kiện quá phức tạp, `switch` sẽ không phải là lựa chọn tốt nhất.
+
+**Khi nào dùng `if`**:  
+- Khi bạn cần kiểm tra các điều kiện phức tạp hoặc không phải là các giá trị cụ thể.
+
+**Khi nào dùng `switch`**:  
+- Khi bạn cần kiểm tra một giá trị so với nhiều giá trị cụ thể, hoặc khi điều kiện là các giá trị hằng số hoặc kiểu dữ liệu có thể phân loại rõ ràng.
+
+---
+
+### Gợi ý lựa chọn cấu trúc phù hợp theo từng tình huống logic
+
+- **Khi chỉ có hai lựa chọn** (true/false):  
+  Sử dụng `if-else`. Ví dụ, kiểm tra một số dương hay âm.
+
+- **Khi có nhiều điều kiện lựa chọn độc lập**:  
+  Sử dụng `else if` hoặc `switch`, tùy thuộc vào số lượng điều kiện. `switch` thường dễ đọc và nhanh hơn nếu có nhiều điều kiện kiểm tra giá trị cụ thể (chẳng hạn tháng trong năm hoặc ngày trong tuần).
+
+- **Khi có nhiều điều kiện phụ thuộc lẫn nhau**:  
+  Sử dụng `nested if` để xử lý các tình huống mà điều kiện kiểm tra phụ thuộc vào nhau. Tuy nhiên, nếu điều kiện lồng nhau quá nhiều, có thể sử dụng **sớm return** hoặc **hàm phụ trợ** để làm cho mã nguồn dễ đọc và dễ bảo trì hơn.
+
+- **Khi có điều kiện so sánh đơn giản (chọn giữa hai giá trị)**:  
+  Dùng toán tử 3 ngôi (`?:`) để thay thế `if-else`, giúp mã ngắn gọn và dễ đọc hơn. Ví dụ: phân loại số chẵn/lẻ hoặc phân loại kết quả theo điểm số.
+
+**Tóm lại**:
+- Sử dụng **`if`** cho điều kiện đơn giản và linh hoạt.
+- **`switch`** rất hữu ích khi cần kiểm tra nhiều giá trị của một biến.
+- **`else if`** giúp kiểm tra các điều kiện phức tạp với nhiều nhánh.
+- **`nested if`** dùng khi các điều kiện phụ thuộc lẫn nhau, nhưng cần tránh sử dụng quá nhiều.
+
+Chọn cấu trúc điều kiện phù hợp giúp chương trình dễ đọc, dễ bảo trì và tránh lỗi logic.
+
+
+> Hẹn gặp lại bạn trong những bài tiếp theo! 
+
+# Link tham khảo
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/selection-statements
+
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/conditional-operator
+
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/statements#1382-the-if-statement
+
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/statements#1383-the-switch-statement
+
+# HASHTAG
+
+`Csharp-in-5-weeks` `Csharp`
+
+# Author
+
+[Dexter](https://github.com/TongTrungKien)
